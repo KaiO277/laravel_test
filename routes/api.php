@@ -14,10 +14,15 @@ Route::post('login', [AuthController::class, 'login']);
 Route::apiResource('/books', BookController::class);
 Route::post('books/{book}/ratings', [RatingController::class, 'store']);
 
-Route::get('/students-list', [StudentController::class, 'index']);
 
 
-Route::get('/courses-list', [CourseController::class, 'index']);
-Route::post('/courses-add', [CourseController::class, 'store']);
-Route::put('/courses-update/{id}', [CourseController::class, 'update']);
-Route::delete('/courses-delete/{id}', [CourseController::class, 'destroy']);
+
+
+
+Route::middleware(['auth:api'])->group(function(){
+    Route::get('/courses-list', [CourseController::class, 'index']);
+    Route::post('/courses-add', [CourseController::class, 'store']);
+    Route::put('/courses-update/{id}', [CourseController::class, 'update']);
+    Route::delete('/courses-delete/{id}', [CourseController::class, 'destroy']);
+    Route::get('/students-list', [StudentController::class, 'index']);
+});
