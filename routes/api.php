@@ -19,3 +19,5 @@ Route::get('/students-list', [StudentController::class, 'index']);
 
 Route::get('/courses-list', [CourseController::class, 'index']);
 Route::post('/courses-add', [CourseController::class, 'store']);
+Route::put('/courses-update/{id}', [CourseController::class, 'update']);
+Route::delete('/courses-delete/{id}', [CourseController::class, 'destroy']);

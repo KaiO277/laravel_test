@@ -73,7 +73,20 @@ class CourseController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $course  = Course::find($id);
+
+        if(!$course){
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Course not found'
+            ], 404);
+        }
+
+        $course->update($request->all());
+        return response()->json([
+            'status' => 'success',
+            'data' => $course
+        ]);
     }
 
     /**
@@ -81,6 +94,17 @@ class CourseController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $course = Course::find($id);
+        if(!$course){
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Course not found'
+            ], 404);
+        }
+        $course->delete();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Course deleted successfully'
+        ]);
     }
 }
